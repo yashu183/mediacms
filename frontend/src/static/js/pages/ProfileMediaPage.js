@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ApiUrlContext, LinksConsumer, MemberContext } from '../utils/contexts';
+import { ApiUrlContext, LinksConsumer, MemberContext, MemberConsumer } from '../utils/contexts';
 import { PageStore, ProfilePageStore } from '../utils/stores';
 import { ProfilePageActions } from '../utils/actions';
 import { MediaListWrapper } from '../components/MediaListWrapper';
@@ -16,15 +16,24 @@ function EmptyChannelMedia(props) {
   return (
     <LinksConsumer>
       {(links) => (
-        <div className="empty-media empty-channel-media">
-          <div className="welcome-title">Welcome {props.name}</div>
-          <div className="start-uploading">
-            Start uploading media and sharing your work. Media that you upload will show up here.
-          </div>
-          <a href={links.user.addMedia} title="Upload media" className="button-link">
-            <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
-          </a>
-        </div>
+        <MemberConsumer>
+          {(user) => {
+            (
+            <div className="empty-media empty-channel-media">
+              <div className="welcome-title">Welcome {props.name}</div>
+              {!user.is.anonymous && (user.is.advancedUser || user.is.admin) ? (
+                <div className="start-uploading">Start uploading media and sharing your work. Media that you upload will show up here.</div>
+                ) : ""}
+
+              {!user.is.anonymous && user.can.addMedia && (user.is.advancedUser || user.is.admin) && (
+                <a href={links.user.addMedia} title="Upload media" className="button-link">
+                  <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
+                </a>
+              )}
+            </div>
+          )
+          } }
+        </MemberConsumer>
       )}
     </LinksConsumer>
   );

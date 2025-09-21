@@ -7,7 +7,7 @@ import { NavigationMenuList } from '../../_shared';
 import { translateString } from '../../../utils/helpers/';
 
 export function SidebarNavigationMenu() {
-  const { userCan, isAnonymous, pages: userPages } = useUser();
+  const { userCan, isAnonymous, isAdmin, isAdvancedUser, pages: userPages } = useUser();
 
   const links = useContext(LinksContext);
   const sidebar = useContext(SidebarContext);
@@ -18,7 +18,12 @@ export function SidebarNavigationMenu() {
   function formatItems(items) {
     return items.map((item) => {
       const url = urlParse(item.link);
-      const active = currentHostPath === url.host + url.pathname;
+      const itemPath = (url.host + url.pathname).replace(/\/+$/, '');
+
+      // Special case for home page: if current path is empty/root and item is index.html, consider it active
+      const isHomePage = (currentHostPath === url.host || currentHostPath === url.host + '/') &&
+                        (url.pathname === '/index.html' || url.pathname === '/');
+      const active = currentHostPath === itemPath || isHomePage;
 
       return {
         active,
@@ -102,7 +107,7 @@ export function SidebarNavigationMenu() {
       });
     }
 
-    if (PageStore.get('config-enabled').pages.members && PageStore.get('config-enabled').pages.members.enabled) {
+    if (PageStore.get('config-enabled').pages.members && PageStore.get('config-enabled').pages.members.enabled && (isAdmin || isAdvancedUser)) {
       items.push({
         link: links.members,
         icon: 'people',
@@ -198,12 +203,6 @@ export function SidebarNavigationMenu() {
       className: 'nav-item-about',
     });
 
-      items.push({
-      link: '/tos',
-      icon: 'description',
-      text: translateString("Terms"),
-      className: 'nav-item-terms',
-    });
 
     items.push({
       link: '/contact',

@@ -8,6 +8,7 @@ export function init(user, features) {
     is: {
       admin: false,
       anonymous: true,
+      advancedUser: false,
     },
     can: {
       login: true,
@@ -47,6 +48,7 @@ export function init(user, features) {
 
     if (!MEMBER.is.anonymous) {
       MEMBER.is.admin = true === user.is.admin;
+      MEMBER.is.advancedUser = true === user.is.advancedUser;
 
       MEMBER.name = 'string' === typeof user.name ? user.name.trim() : '';
       MEMBER.name = '' === MEMBER.name ? null : MEMBER.name;

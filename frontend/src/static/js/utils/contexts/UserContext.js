@@ -8,6 +8,8 @@ const member = mediacmsConfig(window.MediaCMS).member;
 export const UserProvider = ({ children }) => {
   const value = {
     isAnonymous: member.is.anonymous,
+    isAdmin: member.is.admin,
+    isAdvancedUser: member.is.advancedUser,
     username: member.username,
     thumbnail: member.thumbnail,
     userCan: member.can,

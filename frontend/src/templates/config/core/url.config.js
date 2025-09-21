@@ -19,12 +19,12 @@ module.exports = {
   editProfile: './edit-profile.html',
   editChannel: './edit-channel.html',
   /* User account pages */
-  signin: './signin.html',
-  signout: './signout.html',
-  register: './register.html',
-  changePassword: './change-password.html',
+  signin: 'http://localhost/accounts/login/',
+  signout: 'http://localhost/accounts/logout/',
+  register: 'http://localhost/accounts/signup/',
+  changePassword: 'http://localhost/accounts/password/change/',
   /* Administration pages */
-  admin: '/admin',
+  admin: 'http://localhost/admin',
   /* Management pages */
   manageMedia: './manage-media.html',
   manageUsers: './manage-users.html',

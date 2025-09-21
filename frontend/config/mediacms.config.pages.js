@@ -174,13 +174,6 @@ const STATIC_PAGES = {
     renderer: templates.renderBase(),
     snippet: templates.static.aboutPage(),
   },
-  terms: {
-    buildExclude: true,
-    id: 'terms',
-    title: 'Terms',
-    renderer: templates.renderBase(),
-    snippet: templates.static.termsPage(),
-  },
 };
 
 const DEV_ONLY_STATIC_PAGES = {

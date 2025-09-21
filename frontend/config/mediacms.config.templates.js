@@ -31,7 +31,6 @@ module.exports = {
   static: {
     errorPage: compileStaticTmpl('errorPage.html'),
     aboutPage: compileStaticTmpl('aboutPage.html'),
-    termsPage: compileStaticTmpl('termsPage.html'),
     contactPage: compileStaticTmpl('contactPage.html'),
     signinPage: compileStaticTmpl('signinPage.html'),
     signoutPage: compileStaticTmpl('signoutPage.html'),

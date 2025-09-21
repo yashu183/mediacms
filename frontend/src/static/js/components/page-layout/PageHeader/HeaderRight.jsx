@@ -92,7 +92,7 @@ function UploadMediaButton({ user, links }) {
     },
   ];
 
-  return !user.is.anonymous && user.can.addMedia ? (
+  return !user.is.anonymous && user.can.addMedia && (user.is.advancedUser || user.is.admin) ? (
     <div>
       <PopupTrigger contentRef={popupContentRef}>
         <CircleIconButton title={translateString('Upload media')}>

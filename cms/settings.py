@@ -65,15 +65,14 @@ VIDEO_PLAYER_FEATURED_VIDEO_ON_INDEX_PAGE = False
 PRE_UPLOAD_MEDIA_MESSAGE = ""
 
 # email settings
-DEFAULT_FROM_EMAIL = "info@mediacms.io"
-EMAIL_HOST_PASSWORD = "xyz"
-EMAIL_HOST_USER = "info@mediacms.io"
+DEFAULT_FROM_EMAIL = "<Email u want emails to appear from>"
+EMAIL_HOST_PASSWORD = "<Your App Password>"
+EMAIL_HOST_USER = "<Email u need to authenticate with>"
 EMAIL_USE_TLS = True
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-EMAIL_HOST = "mediacms.io"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-ADMIN_EMAIL_LIST = ["info@mediacms.io"]
-
+ADMIN_EMAIL_LIST = ["<Email who needs to get admin notifications>"]
 
 MEDIA_IS_REVIEWED = True  # whether an admin needs to review a media file.
 # By default consider this is not needed.
@@ -226,7 +225,7 @@ POST_UPLOAD_AUTHOR_MESSAGE_UNLISTED_NO_COMMENTARY = ""
 # only in case where unlisted workflow is used and no commentary
 # exists
 
-CANNOT_ADD_MEDIA_MESSAGE = "User cannot add media, or maximum number of media uploads has been reached."
+CANNOT_ADD_MEDIA_MESSAGE = "There are no videos to watch. Wait for the admin to add those."
 
 # mp4hls command, part of Bento4
 MP4HLS_COMMAND = "/home/mediacms.io/mediacms/Bento4-SDK-1-6-0-637.x86_64-unknown-linux/bin/mp4hls"

@@ -64,7 +64,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        read_only_fields = ("date_added", "is_featured", "uid", "username", "advancedUser", "is_editor", "is_manager", "email_is_verified")
+        read_only_fields = ("date_added", "is_featured", "uid", "username")
         fields = (
             "description",
             "date_added",
@@ -74,10 +74,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "banner_thumbnail_url",
             "url",
             "username",
-            "advancedUser",
-            "is_editor",
-            "is_manager",
-            "email_is_verified",
             "media_info",
             "api_url",
             "edit_url",

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ApiUrlConsumer, LinksConsumer } from '../utils/contexts/';
+import React, { useState, useEffect } from 'react';
+import { ApiUrlConsumer, LinksConsumer, MemberConsumer } from '../utils/contexts/';
 import { PageStore } from '../utils/stores/';
 import { MediaListRow } from '../components/MediaListRow';
 import { MediaMultiListWrapper } from '../components/MediaMultiListWrapper';
@@ -7,18 +7,56 @@ import { ItemListAsync } from '../components/item-list/ItemListAsync.jsx';
 import { InlineSliderItemListAsync } from '../components/item-list/InlineSliderItemListAsync.jsx';
 import { Page } from './Page';
 import { translateString } from '../utils/helpers/';
+import userAPI from '../utils/api/userApi.js';
 
 const EmptyMedia: React.FC = ({}) => {
+  const [realUser, setRealUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRealUserData = async () => {
+      try {
+        const userData = await userAPI.fetchUserData();
+      } catch (error) {
+        console.error('❌ Failed to fetch real user data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRealUserData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading user data...</div>;
+  }
+
   return (
     <LinksConsumer>
       {(links) => (
-        <div className="empty-media">
-          <div className="welcome-title">Welcome to MediaCMS!</div>
-          <div className="start-uploading">Start uploading media and sharing your work!</div>
-          <a href={links.user.addMedia} title="Upload media" className="button-link">
-            <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
-          </a>
-        </div>
+        <MemberConsumer>
+          {(staticUser) => {
+            // Use real user data if available, otherwise fall back to static config
+            const user = realUser || staticUser;
+
+            return (
+            <div className="empty-media">
+              <div className="welcome-title">Welcome to YashuFlix {user.name ? `, ${user.name}` : ''}!</div>
+                {!user.is.anonymous && (user.is.advancedUser || user.is.admin) ? (
+                <div className="start-uploading">Start uploading media and sharing your work!</div>
+                ) : (
+                <div className="start-uploading">Admin yet to upload the videos. Sit tight until then!</div>
+                )}
+                
+              {!user.is.anonymous && user.can.addMedia && (user.is.advancedUser || user.is.admin) && (
+                <a href={links.user.addMedia} title="Upload media" className="button-link">
+                  <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
+                </a>
+              )}
+            </div>
+          )
+          }}
+        </MemberConsumer>
       )}
     </LinksConsumer>
   );
