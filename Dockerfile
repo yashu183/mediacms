@@ -7,12 +7,12 @@ RUN apt-get update -y && \
     apt-get purge --auto-remove && \
     apt-get clean
 
-RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+RUN wget -q https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
 
 RUN mkdir -p ffmpeg-tmp && \
-    tar -xf ffmpeg-release-amd64-static.tar.xz --strip-components 1 -C ffmpeg-tmp && \
+    tar -xf ffmpeg-release-arm64-static.tar.xz --strip-components 1 -C ffmpeg-tmp && \
     cp -v ffmpeg-tmp/ffmpeg ffmpeg-tmp/ffprobe ffmpeg-tmp/qt-faststart /usr/local/bin && \
-    rm -rf ffmpeg-tmp ffmpeg-release-amd64-static.tar.xz
+    rm -rf ffmpeg-tmp ffmpeg-release-arm64-static.tar.xz
 
 # Install Bento4 in the specified location
 RUN mkdir -p /home/mediacms.io/bento4 && \
