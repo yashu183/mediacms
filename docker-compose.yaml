@@ -29,6 +29,7 @@ services:
       - "80:80"
     volumes:
       - ./:/home/mediacms.io/mediacms/
+    restart: unless-stopped
     environment:
       ENABLE_CELERY_BEAT: 'no'
       ENABLE_CELERY_SHORT: 'no'
@@ -40,6 +41,7 @@ services:
     image: mediacms/mediacms:latest
     volumes:
       - ./:/home/mediacms.io/mediacms/
+    restart: unless-stopped
     environment:
       ENABLE_UWSGI: 'no'
       ENABLE_NGINX: 'no'
@@ -54,6 +56,7 @@ services:
       replicas: 1
     volumes:
       - ./:/home/mediacms.io/mediacms/
+    restart: unless-stopped
     environment:
       ENABLE_UWSGI: 'no'
       ENABLE_NGINX: 'no'
